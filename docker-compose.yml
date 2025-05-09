@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  api:
+    build: .
+    container_name: produto-api
+    ports:
+      - "8087:8087"
+    command: ["java", "-jar", "app.jar"]
+    restart: always
+
+    extra_hosts:
+      - host.docker.internal:host-gateway
