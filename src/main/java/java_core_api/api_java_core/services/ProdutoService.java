@@ -1,6 +1,7 @@
 package java_core_api.api_java_core.services;
 
 import java_core_api.api_java_core.domain.Produto;
+import java_core_api.api_java_core.dtos.ProdutoFabricanteDTO;
 import java_core_api.api_java_core.mapper.ProdutoMapper; // Alterar para ProdutoMapper
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class ProdutoService {
         produtoMapper.salvar(produto);
     }
 
-    public List<Produto> listarTodos() {
+    public List<ProdutoFabricanteDTO> listarTodos() {
         return produtoMapper.listarTodas();
     }
 
@@ -29,7 +30,7 @@ public class ProdutoService {
         produtoMapper.deletar(id);
     }
 
-    public Produto buscarPorId(Long id) {
+    public ProdutoFabricanteDTO buscarPorId(Long id) {
         return produtoMapper.buscarPorId(id);
     }
 }

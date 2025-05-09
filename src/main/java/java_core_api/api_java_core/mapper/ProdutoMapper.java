@@ -1,6 +1,7 @@
 package java_core_api.api_java_core.mapper;
 
 import java_core_api.api_java_core.domain.Produto;
+import java_core_api.api_java_core.dtos.ProdutoFabricanteDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ProdutoMapper {
 
-    List<Produto> listarTodas();
+    List<ProdutoFabricanteDTO> listarTodas();
 
     void salvar(Produto produto); // Método para salvar o produto
 
@@ -16,5 +17,5 @@ public interface ProdutoMapper {
 
     void deletar(Long id); // Método para deletar o produto
 
-    Produto buscarPorId(Long id); // Método para buscar produto por id
+    ProdutoFabricanteDTO buscarPorId(Long id); // Método para buscar produto por id
 }

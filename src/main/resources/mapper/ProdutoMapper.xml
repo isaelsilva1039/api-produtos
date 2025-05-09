@@ -4,11 +4,13 @@
 
 <mapper namespace="java_core_api.api_java_core.mapper.ProdutoMapper">
 
-    <!-- Selecionar todos os produtos -->
-    <select id="listarTodas" resultMap="produtoResultMap">
-        SELECT id, nome, codigo_barras, fabricante_id FROM pulse.produto
+    <!-- Selecionar todos os produtos e o fabricante associado -->
+    <select id="listarTodas" resultMap="produtoFabricanteResultMap">
+        SELECT p.id AS produto_id, p.nome AS produto_nome, p.codigo_barras, p.fabricante_id,
+        f.id AS fabricante_id, f.nome AS fabricante_nome
+        FROM pulse.produto p
+        JOIN pulse.fabricante f ON p.fabricante_id = f.id
     </select>
-
 
     <!-- Inserir novo produto -->
     <insert id="salvar" parameterType="java_core_api.api_java_core.domain.Produto" useGeneratedKeys="true" keyProperty="id">
@@ -29,16 +31,20 @@
     </delete>
 
     <!-- Buscar um produto pelo ID -->
-    <select id="buscarPorId" resultMap="produtoResultMap">
-        SELECT id, nome, codigo_barras, fabricante_id FROM pulse.produto WHERE id = #{id};
+    <select id="buscarPorId" resultMap="produtoFabricanteResultMap">
+        SELECT p.id AS produto_id, p.nome AS produto_nome, p.codigo_barras, p.fabricante_id,
+        f.id AS fabricante_id, f.nome AS fabricante_nome
+        FROM pulse.produto p
+        JOIN pulse.fabricante f ON p.fabricante_id = f.id
+        WHERE p.id = #{id};
     </select>
 
-    <!-- Definindo o resultMap -->
-    <resultMap id="produtoResultMap" type="java_core_api.api_java_core.domain.Produto">
-        <id property="id" column="id"/>
-        <result property="nome" column="nome"/>
+    <resultMap id="produtoFabricanteResultMap" type="java_core_api.api_java_core.dtos.ProdutoFabricanteDTO">
+        <id property="produtoId" column="produto_id"/>
+        <result property="produtoNome" column="produto_nome"/>
         <result property="codigoBarras" column="codigo_barras"/>
         <result property="fabricanteId" column="fabricante_id"/>
+        <result property="fabricanteNome" column="fabricante_nome"/>
     </resultMap>
 
 </mapper>

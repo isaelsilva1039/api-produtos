@@ -3,6 +3,7 @@ package java_core_api.api_java_core.controller;
 import jakarta.validation.Valid;
 import java_core_api.api_java_core.dtos.ProdutoDTO; // Alterar para ProdutoDTO
 import java_core_api.api_java_core.domain.Produto;
+import java_core_api.api_java_core.dtos.ProdutoFabricanteDTO;
 import java_core_api.api_java_core.services.ProdutoService; // Alterar para ProdutoService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,10 +42,9 @@ public class ProdutoController {
 
     // Endpoint para listar todos os Produtos
     @GetMapping
-    public ResponseEntity<List<Produto>> listar() {
+    public ResponseEntity<List<ProdutoFabricanteDTO>> listar() {
         try {
-            List<Produto> produtos = produtoService.listarTodos();
-
+            List<ProdutoFabricanteDTO> produtos = produtoService.listarTodos();
 
             return ResponseEntity.ok(produtos);
         } catch (Exception e) {
@@ -56,7 +56,7 @@ public class ProdutoController {
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
         try {
-            Produto produto = produtoService.buscarPorId(id);
+            ProdutoFabricanteDTO produto = produtoService.buscarPorId(id);
             if (produto == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
             }
@@ -71,7 +71,7 @@ public class ProdutoController {
     public ResponseEntity<String> atualizar(@PathVariable Long id, @Valid @RequestBody ProdutoDTO produtoDTO) {
         try {
 
-            Produto produtoExistente = produtoService.buscarPorId(id);
+            ProdutoFabricanteDTO produtoExistente = produtoService.buscarPorId(id);
 
             if (produtoExistente == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
@@ -96,7 +96,7 @@ public class ProdutoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletar(@PathVariable Long id) {
         try {
-            Produto produtoExistente = produtoService.buscarPorId(id);
+            ProdutoFabricanteDTO produtoExistente = produtoService.buscarPorId(id);
 
             if (produtoExistente == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
